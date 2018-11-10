@@ -41,11 +41,12 @@ def remove_brackets(lyrics):
 
 def run():
     chart = ChartData('r-b-hip-hop-songs')
-    stop_month = '2016-12'
+    stop_month = '2018-10'
     songs = get_songs(chart, stop_month)
-    corpus = '\n\n'.join(get_all_lyrics(songs))
-    with codecs.open('corpus.txt', 'w', "utf-8") as f:
-        f.write(corpus)
+    print(songs)
+    #corpus = '\n\n'.join(get_all_lyrics(songs))
+    #with codecs.open('corpus.txt', 'w', "utf-8") as f:
+    #    f.write(corpus)
 
 if __name__ == '__main__':
     run()

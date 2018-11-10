@@ -1,7 +1,3 @@
-import requests
-import re
-from bs4 import BeautifulSoup
-from urllib.parse import urlencode
 import lyricsgenius as genius
 
 def get_all_lyrics(objs):

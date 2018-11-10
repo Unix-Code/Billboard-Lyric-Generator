@@ -3,6 +3,10 @@ import re
 from bs4 import BeautifulSoup
 from urllib.parse import urlencode
 
+def get_all_lyrics(objs):
+    lyrics = [get_lyris(obj) for obj in objs]
+    return lyrics
+
 def get_url(obj):
     title = obj['Title']
     artist = obj['Artist']

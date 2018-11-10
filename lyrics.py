@@ -19,7 +19,8 @@ def get_url(obj):
     song_url = song.a['href']
     return song_url
  
-def get_lyrics(url):
+def get_lyrics(obj):
+    url = get_url(obj)
     try:
         r = requests.get(url)
         r.encoding = 'utf-8'

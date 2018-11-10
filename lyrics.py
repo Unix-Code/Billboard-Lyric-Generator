@@ -3,8 +3,10 @@ import re
 from bs4 import BeautifulSoup
 from urllib.parse import urlencode
 
+
 def get_all_lyrics(objs):
-    lyrics = [get_lyris(obj) for obj in objs]
+    lyrics = [get_lyrics(obj) for obj in objs]
+    lyrics = [obj for obj in lyrics if obj is not None]
     return lyrics
 
 def get_url(obj):
@@ -19,12 +21,19 @@ def get_url(obj):
     content = r.text
 
     soup = BeautifulSoup(content, 'lxml')
-    song = soup.find(string="Song results:").find_next("td")
-    song_url = song.a['href']
+    song = soup.find(string="Song results:")
+    song_url = ""
+    if (song is not None):
+        song = song.find_next("td")
+        song_url = song.a['href']
     return song_url
  
 def get_lyrics(obj):
     url = get_url(obj)
+
+    if url == "":
+        return None
+
     try:
         r = requests.get(url)
         r.encoding = 'utf-8'

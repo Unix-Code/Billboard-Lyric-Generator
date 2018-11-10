@@ -1,3 +1,7 @@
+import requests
+import re
+from bs4 import BeautifulSoup
+from urllib.parse import urlencode
 import lyricsgenius as genius
 
 def get_all_lyrics(objs):
@@ -16,9 +20,10 @@ def get_lyrics(obj):
         return lyrics
         #print(lyrics)
     except Exception as e:
-        print("Couldn't get lyrics from %s" % url)
+        print("Couldn't get lyrics from %s" % (title + " - " + artist))
         return None
 
 if __name__ == '__main__':
     #get_lyrics("https://www.azlyrics.com/lyrics/travisscott/sickomode.html")
-    get_lyrics({'Title': 'sicko mode', 'Artist': 'Travis Scott'})
+    lyrics = get_lyrics({'Title': 'sicko mode', 'Artist': 'Travis Scott'})
+    print(lyrics)

@@ -3,7 +3,6 @@ TODO:
 - make a title generator (based on lines from the hook, can be incorporated with structure method)
 - make a GUI
 - organize song_structure.py better
-- line breaks!!! (if manual, based on length and punctuation?)
 - remove stray parentheses
-- trim everything after the last comma
-- start with a primer word that is randomly selected from corpus
+- redo line break generator -- deliminate lines by commas first, then break them apart if too long or append them if too short
+- remove commas after using them for line breaks?

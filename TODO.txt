@@ -1,0 +1,7 @@
+TODO:
+
+- make a title generator (based on lines from the hook, can be incorporated with structure method)
+- make a GUI
+- organize song_structure.py better
+- line breaks!!! (if manual, based on length and punctuation?)
+- remove stray parentheses

@@ -1,5 +1,5 @@
 from billboard import ChartData
-from lyrics import get_all_lyrics
+from lyrics_genius import get_all_lyrics
 import codecs
 
 # chart = ChartData('rap-song', date='2018-11-10')
@@ -41,12 +41,12 @@ def remove_brackets(lyrics):
 
 def run():
     chart = ChartData('r-b-hip-hop-songs')
-    stop_month = '2018-10'
+    stop_month = '2015-12'
     songs = get_songs(chart, stop_month)
     print(songs)
-    #corpus = '\n\n'.join(get_all_lyrics(songs))
-    #with codecs.open('corpus.txt', 'w', "utf-8") as f:
-    #    f.write(corpus)
+    corpus = '\n\n'.join(get_all_lyrics(songs))
+    with codecs.open('corpus.txt', 'w', "utf-8") as f:
+       f.write(corpus)
 
 if __name__ == '__main__':
     run()

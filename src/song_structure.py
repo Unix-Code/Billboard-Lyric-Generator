@@ -40,11 +40,14 @@ def add_hooks(song):
 
 def separate_lines(lyrics):
     song = ''
-    lines = lyrics.replace(', ', ',\n').split('\n')
-    for i, line in enumerate(lines):
-        line_words = line.split(' ')
+    lyrics = lyrics.replace(', ', ',\n')
+    lines = lyrics.split('\n')
+    for i in range(len(lines)):
+        line_words = lines[i].split(' ')
         if len(line_words) > 10:
             lines.insert(i + 1, line_words[10:])
+            lines[i] = ' '.join(line_words[:10])
+    return song
     # for i, line in enumerate(lines):
     #     # print(str(len(line.split(' '))))
     #     if len(line) < 15 and i < len(lines) - 1:
@@ -56,7 +59,7 @@ def separate_lines(lyrics):
     #         song += '\n' + ' '.join(tmp[:10])
     #     else:
     #         song += '\n' + line
-    return lines
+    # return lines
 
     # song = ''
     # words = lyrics.split()

@@ -10,7 +10,7 @@ from beam import BeamSearch
 from config import Config
 import flask_wtf
 import tensorflow as tf
-from song_structure import get_full_song
+from song_structure import get_full_song, get_primer
 
 app = Flask(__name__, static_url_path='')
 app.config.from_object(Config)
@@ -39,11 +39,11 @@ def index():
     #song = ""
     if request.method == "POST":
         print("DO THING")
-        print(form.prime.data)
+        #print(form.prime.data)
         global ai
         print("GETTING GLOBAL")
 
-        raw_lyrics = sample(form.prime.data, ai)
+        raw_lyrics = sample(get_primer(), ai)
         form.song.data = get_full_song(raw_lyrics)
 
         print("GOT SAMPLE")

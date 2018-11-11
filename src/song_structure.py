@@ -44,37 +44,15 @@ def separate_lines(lyrics):
     lines = lyrics.split('\n')
     for i in range(len(lines)):
         line_words = lines[i].split(' ')
-        if len(line_words) > 10:
-            lines.insert(i + 1, line_words[10:])
-            lines[i] = ' '.join(line_words[:10])
+        if len(line_words) > 8:
+            num_divs = round(len(line_words)/8)
+            for x in range(num_divs):
+                song += '\n' + ' '.join(line_words[round(len(line_words)/num_divs*x):round(len(line_words)/num_divs*(x+1))])
+        elif len(line_words) < 3:
+            song += ' '.join(line_words)
+        else:
+            song += '\n' + ' '.join(line_words)
     return song
-    # for i, line in enumerate(lines):
-    #     # print(str(len(line.split(' '))))
-    #     if len(line) < 15 and i < len(lines) - 1:
-    #         lines[i + 1] += ' ' + line
-    #     elif len(line.split(' ')) > 10 and i < len(lines) - 1:
-    #         tmp = line.split(' ')
-    #         # print(tmp[10:])
-    #         lines[i + 1] += ' ' + ' '.join(tmp[10:])
-    #         song += '\n' + ' '.join(tmp[:10])
-    #     else:
-    #         song += '\n' + line
-    # return lines
-
-    # song = ''
-    # words = lyrics.split()
-    #
-    # line_length = 0
-    # for i, val in enumerate(words):
-    #     song += words[i] + ' '
-    #     line_length += 1
-    #     if (words[i][-1:] == ',' or words[i][-1:] == '?' or words[i][-1:] == ')') and line_length >= 4:
-    #         song += '\n'
-    #         line_length = 0
-    #     elif line_length >= 10:
-    #         song += '\n'
-    #         line_length = 0
-
 
 
 def trim_ending(lyrics):
@@ -123,8 +101,7 @@ def run():
     lyrics = ''
     with codecs.open('../generated songs/gen15.txt', 'r', "utf-8") as f:
         lyrics = f.read()
-    print(separate_lines(trim_ending(clean_parens(lyrics))))
-    # print(add_hooks(separate_lines(trim_ending(clean_parens(lyrics)))))
+    print(add_hooks(separate_lines(trim_ending(clean_parens(lyrics)))))
 
 
 if __name__ == '__main__':

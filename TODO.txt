@@ -6,3 +6,7 @@ TODO:
 - remove stray parentheses
 - redo line break generator -- deliminate lines by commas first, then break them apart if too long or append them if too short
 - remove commas after using them for line breaks?
+
+- make new line break method take ? and ) into account in addition to ,
+- make it possible for a hook to appear at the end
+- add more hook types

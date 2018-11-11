@@ -5,3 +5,5 @@ TODO:
 - organize song_structure.py better
 - line breaks!!! (if manual, based on length and punctuation?)
 - remove stray parentheses
+- trim everything after the last comma
+- start with a primer word that is randomly selected from corpus

@@ -12,8 +12,10 @@ def convert_hit(hit):
            list(hit[1])[0]: list(hit[1])[1]}
     return hit
 
+
 def trim_features(artist):
     return artist.split('Featuring')[0]
+
 
 def get_songs(chart, stop_month):
     hits = set()
@@ -31,6 +33,7 @@ def get_songs(chart, stop_month):
 
     return hits
 
+
 def remove_brackets(lyrics):
     filtered_lyrics = ''
     for s in lyrics.split('['):
@@ -38,6 +41,7 @@ def remove_brackets(lyrics):
         if len(splitted) > 1:
             filtered_lyrics += splitted[1]
     return filtered_lyrics
+
 
 def run():
     chart = ChartData('r-b-hip-hop-songs')
@@ -47,6 +51,7 @@ def run():
     corpus = '\n\n'.join(get_all_lyrics(songs))
     with codecs.open('corpus.txt', 'w', "utf-8") as f:
        f.write(corpus)
+
 
 if __name__ == '__main__':
     run()

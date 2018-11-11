@@ -3,11 +3,14 @@ from tensorflow.contrib import rnn
 from tensorflow.contrib import legacy_seq2seq
 import random
 import numpy as np
+from tensorflow import VariableScope
 
-from app.beam import BeamSearch
+from beam import BeamSearch
+
+count = 0
 
 class Model():
-    def __init__(self, args, infer=False):
+    def __init__(self, args,infer=False):
         print("INITIALIZED MODEL")
         self.args = args
         if infer:
@@ -51,7 +54,9 @@ class Model():
                 tf.summary.scalar('min', tf.reduce_min(var))
                 #tf.summary.histogram('histogram', var)
 
-        with tf.variable_scope('rnnlm'):
+
+
+        with tf.variable_scope('rnnlm', reuse=tf.AUTO_REUSE):
             softmax_w = tf.get_variable("softmax_w", [args.rnn_size, args.vocab_size])
             variable_summaries(softmax_w)
             softmax_b = tf.get_variable("softmax_b", [args.vocab_size])
@@ -66,7 +71,8 @@ class Model():
             prev_symbol = tf.stop_gradient(tf.argmax(prev, 1))
             return tf.nn.embedding_lookup(embedding, prev_symbol)
 
-        outputs, last_state = legacy_seq2seq.rnn_decoder(inputs, self.initial_state, cell, loop_function=loop if infer else None, scope='rnnlm')
+
+        outputs, last_state = legacy_seq2seq.rnn_decoder(inputs, self.initial_state, cell, loop_function=loop if infer else None, scope=VariableScope(name='rnnlm', reuse=tf.AUTO_REUSE))
         output = tf.reshape(tf.concat(outputs, 1), [-1, args.rnn_size])
         self.logits = tf.matmul(output, softmax_w) + softmax_b
         self.probs = tf.nn.softmax(self.logits)
@@ -79,6 +85,7 @@ class Model():
         self.final_state = last_state
         self.lr = tf.Variable(0.0, trainable=False)
         tvars = tf.trainable_variables()
+
         grads, _ = tf.clip_by_global_norm(tf.gradients(self.cost, tvars),
                 args.grad_clip)
         optimizer = tf.train.AdamOptimizer(self.lr)
@@ -86,6 +93,7 @@ class Model():
 
     def sample(self, sess, words, vocab, num=200, prime='first all', sampling_type=1, pick=0, width=4, quiet=False):
         print("STARTED SAMPLNG")
+        #print("Prime: " + prime)
         def weighted_pick(weights):
             t = np.cumsum(weights)
             s = np.sum(weights)

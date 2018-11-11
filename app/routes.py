@@ -11,6 +11,7 @@ from config import Config
 import flask_wtf
 import tensorflow as tf
 from song_structure import get_full_song, get_primer
+from random import randint
 
 app = Flask(__name__, static_url_path='')
 app.config.from_object(Config)
@@ -63,7 +64,7 @@ def sample(prime, model):
         ckpt = tf.train.get_checkpoint_state(save_dir)
         if ckpt and ckpt.model_checkpoint_path:
             saver.restore(sess, ckpt.model_checkpoint_path)
-            return model.sample(sess, words, vocab, 500, prime, 1, 1, 4, False)
+            return model.sample(sess, words, vocab, randint(300, 600), prime, 1, 1, 4, False)
 
 @app.route('/imgs/<path:path>')
 def send_js(path):

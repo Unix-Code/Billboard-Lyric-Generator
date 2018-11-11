@@ -3,6 +3,7 @@
 <head>
   <title>Bumpify</title>
   <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='main.css') }}">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <style>
   .centerImage {
@@ -27,10 +28,10 @@
           </div>
         </form>
 
+        <div id="loading"><img src="imgs/spinner.svg" style="margin-bottom:30px"></img><br></div>
+
         {% if form.song.data != "" %}
         <textarea style="width:50%;height:70%;text-align:center">{{ form.song.data }}</textarea>
-        {% else %}
-        <textarea></textarea>
         {% endif %}
         <br>
         <a id="git" href="https://github.com/Unix-Code/Billboard-Lyric-Generator">Source Code</a>
@@ -38,6 +39,12 @@
       </div>
     </div>
   </div>
+  <script>
+    $('#loading').hide();
+    $("#submit").click(function(e) {
+      $('#loading').show();
+    });
+  </script>
 </body>
 
 </html>

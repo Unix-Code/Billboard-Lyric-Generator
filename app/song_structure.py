@@ -40,19 +40,60 @@ def add_hooks(song):
 
 def separate_lines(lyrics):
     song = ''
-    lyrics = lyrics.replace(', ', ',\n')
+    lyrics = lyrics.replace(') ', ')\n')
     lines = lyrics.split('\n')
+    for i in range(len(lines)):
+        lines[i] = lines[i].replace(', ', ',\n')
+    lines = '\n'.join(lines).split('\n')
+    adding_at_front = False
     for i in range(len(lines)):
         line_words = lines[i].split(' ')
         if len(line_words) > 8:
             num_divs = round(len(line_words)/8)
             for x in range(num_divs):
-                song += '\n' + ' '.join(line_words[round(len(line_words)/num_divs*x):round(len(line_words)/num_divs*(x+1))])
+                if not adding_at_front:
+                    song += '\n'
+                song += ' '.join(line_words[round(len(line_words)/num_divs*x):round(len(line_words)/num_divs*(x+1))])
+                adding_at_front = False
         elif len(line_words) < 3:
+            if not adding_at_front:
+                song += '\n'
             song += ' '.join(line_words)
+            adding_at_front = True
         else:
-            song += '\n' + ' '.join(line_words)
+            if not adding_at_front:
+                song += '\n'
+            song += ' '.join(line_words)
+            adding_at_front = False
+    print(song)
+    print('~~~~~~~~~~~~~~~~~~``')
     return song
+    # for i in range(len(lines)):
+    #     line_words = lines[i].split(' ')
+    #     if len(line_words) > 8:
+    #         num_divs = round(len(line_words)/8)
+    #         for x in range(num_divs):
+    #             song += '\n' + ' '.join(line_words[round(len(line_words)/num_divs*x):round(len(line_words)/num_divs*(x+1))])
+    #     elif len(line_words) < 3:
+    #         song += ' '.join(line_words)
+    #     else:
+    #         song += '\n' + ' '.join(line_words)
+    # return song
+
+    # song = ''
+    # lyrics = lyrics.replace(', ', ',\n')
+    # lines = lyrics.split('\n')
+    # for i in range(len(lines)):
+    #     line_words = lines[i].split(' ')
+    #     if len(line_words) > 8:
+    #         num_divs = round(len(line_words)/8)
+    #         for x in range(num_divs):
+    #             song += '\n' + ' '.join(line_words[round(len(line_words)/num_divs*x):round(len(line_words)/num_divs*(x+1))])
+    #     elif len(line_words) < 3:
+    #         song += ' '.join(line_words)
+    #     else:
+    #         song += '\n' + ' '.join(line_words)
+    # return song
 
 
 def trim_ending(lyrics):
@@ -104,7 +145,10 @@ def get_full_song(lyrics):
     #    lyrics = f.read()
     return add_hooks(separate_lines(trim_ending(clean_parens(lyrics))))
 
-'''
+
 if __name__ == '__main__':
-   run()
-'''
+    lyrics = ''
+    with codecs.open('../generated songs/gen15.txt', 'r', "utf-8") as f:
+       lyrics = f.read()
+    print(add_hooks(separate_lines(trim_ending(clean_parens(lyrics)))))
+

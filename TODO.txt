@@ -10,3 +10,4 @@ TODO:
 - make new line break method take ? and ) into account in addition to ,
 - make it possible for a hook to appear at the end
 - add more hook types
+- get rid of stray quotation marks

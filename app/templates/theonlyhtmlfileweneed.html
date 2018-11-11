@@ -1,39 +1,43 @@
-  <html>
+<html>
+
 <head>
   <title>Bumpify</title>
-  <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='main.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='main.css') }}">
 </head>
+<style>
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+</style>
 <body>
-<div class="wrapper" align="center">
-  <div class="header">
-    <div class="container jumbotron">
-      <!-- width 445, height 312 -->
-      <img src="../imgs/white logo v2.png" width="667" height="469" />
-      <form action="/" method="post">
+  <div class="wrapper" align="center">
+    <div class="header">
+      <div class="container jumbotron">
+        <!-- width 445, height 312 -->
+        <img src="imgs/white logo v2.png" width="667" height="469" class="center" />
+        <form action="/" method="post" class="center">
 
-        {{ form.csrf_token }}
+          {{ form.csrf_token }}
           <div>
-              {{ form.prime(size=32, placeholder="Prime") }}
+            {{ form.prime(size=32, placeholder="Prime") }}
 
-          <p>{{ form.submit() }}</p>
-        </div>
-      </form>
+            <p>{{ form.submit() }}</p>
+          </div>
+        </form>
 
-      <div id="status"></div>
+        {% if form.song.data != "" %}
+        <textarea style="width:80%;height:80%">{{ form.song.data }}</textarea>
+        {% else %}
+        <textarea></textarea>
+        {% endif %}
+        <br>
+        <a class="center" id="git" href="https://github.com/Unix-Code/Billboard-Lyric-Generator">Source Code</a>
 
-      <input id="song" value="{{ song }}" />
-      <br>
-      <a id="git" href="https://github.com/Unix-Code/Billboard-Lyric-Generator">Source Code</a>
-
+      </div>
     </div>
   </div>
-</div>
-
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script>
-  $('#Submit').submit(function(e) {
-    $('status').text('LOADING...');
-  });
-</script>
 </body>
 </html>

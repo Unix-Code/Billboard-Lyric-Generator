@@ -45,6 +45,7 @@ def separate_lines(lyrics):
     for i in range(len(lines)):
         lines[i] = lines[i].replace(', ', ',\n')
     lines = '\n'.join(lines).split('\n')
+    print(lines)
     adding_at_front = False
     for i in range(len(lines)):
         line_words = lines[i].split(' ')
@@ -59,7 +60,10 @@ def separate_lines(lyrics):
             if not adding_at_front:
                 song += '\n'
             song += ' '.join(line_words)
+            song += ' '
             adding_at_front = True
+            # if i < len(lines) - 1 and len(lines[i+1].split(' ')) >= 3:
+            #     song += '\n'
         else:
             if not adding_at_front:
                 song += '\n'

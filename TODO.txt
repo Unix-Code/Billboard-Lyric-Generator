@@ -1,13 +1,11 @@
 TODO:
 
 - make a title generator (based on lines from the hook, can be incorporated with structure method)
-- make a GUI
 - organize song_structure.py better
 - remove stray parentheses
 - redo line break generator -- deliminate lines by commas first, then break them apart if too long or append them if too short
-- remove commas after using them for line breaks?
-
-- make new line break method take ? and ) into account in addition to ,
+- make new line break method take '?' and ')' into account in addition to ','
+- remove commas after using them for line breaks
 - make it possible for a hook to appear at the end
 - add more hook types
-- get rid of stray quotation marks
+- remove of stray quotation marks
